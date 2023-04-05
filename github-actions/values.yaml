@@ -4,11 +4,13 @@
 
 replicaCount: 1
 
+quay.io/abdul_ali/
+
 image:
-  repository: nginx
+  repository: quay.io/abdul_ali/actions-test
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "dev"
 
 imagePullSecrets: []
 nameOverride: "github-actions-app"
