@@ -123,7 +123,7 @@ jobs:
     - name: Helm install
       run: |
         helm upgrade --install \
-          ${APP_NAME}-${TAG} github-actions-chart \
+          ${APP_NAME} github-actions-chart \
           --set image.tag=${TAG} \
           --set fullnameOverride=${APP_NAME}-${TAG} \
           --namespace ${OPENSHIFT_NAMESPACE}
