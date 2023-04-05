@@ -37,6 +37,7 @@ env:
 
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
   APP_NAME: "github-actions"
+  TAG: "dev"
 
   # 🖊️ EDIT with the port your application should be accessible on.
   # If the container image exposes *exactly one* port, this can be left blank.
@@ -97,19 +98,16 @@ jobs:
       run: |
         echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
 
-    - name: Determine image tags
-      if: env.IMAGE_TAGS == ''
+    - name: Determine tag
+      if: env.TAG == ''
       run: |
-        echo "IMAGE_TAGS=latest ${GITHUB_SHA::12}" | tee -a $GITHUB_ENV
-
-    # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
+        echo "TAG=${GITHUB_REF##*/}" | tee -a $GITHUB_ENV
 
     - name: Install oc
       uses: redhat-actions/openshift-tools-installer@v1
       with:
         oc: 4
 
-    # https://github.com/redhat-actions/oc-login#readme
     - name: Log in to OpenShift
       uses: redhat-actions/oc-login@v1
       with:
@@ -117,13 +115,11 @@ jobs:
         openshift_token: ${{ env.OPENSHIFT_TOKEN }}
         insecure_skip_tls_verify: true
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
-
-    # Install the app into the cluster with Helm, setting the app name to "myapp-<TAG>"
-    # Helm is already installed into GitHub's Ubuntu runner
+        
     - name: Helm install
       run: |
         helm upgrade --install \
           ${APP_NAME} github-actions \
-          --set image.tag=env.IMAGE_TAGS \
+          --set image.tag=${TAG} \
           --set fullnameOverride=${APP_NAME}-${TAG} \
           --namespace ${OPENSHIFT_NAMESPACE}
