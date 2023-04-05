@@ -11,8 +11,8 @@ image:
   tag: "dev"
 
 imagePullSecrets: []
-nameOverride: "github-actions-app"
-fullnameOverride: "github-actions-chart"
+nameOverride: ""
+fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
