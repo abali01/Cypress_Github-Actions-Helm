@@ -126,4 +126,4 @@ jobs:
           --set image.tag=${TAG} \
           --set fullnameOverride=${APP_NAME}-${TAG} \
           --namespace ${OPENSHIFT_NAMESPACE} \
-          ${APP_NAME}-${TAG}
+          ${APP_NAME}-${TAG} github-actions-chart
