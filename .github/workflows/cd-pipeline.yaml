@@ -44,7 +44,7 @@ env:
   APP_PORT: "8080"
 
   # 🖊️ EDIT to specify custom tags for the container image, or default tags will be generated below.
-  IMAGE_TAGS: ""
+  IMAGE_TAGS: "dev"
 
 on:
   # https://docs.github.com/en/actions/reference/events-that-trigger-workflows
