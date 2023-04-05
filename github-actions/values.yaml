@@ -4,8 +4,6 @@
 
 replicaCount: 1
 
-quay.io/abdul_ali/
-
 image:
   repository: quay.io/abdul_ali/actions-test
   pullPolicy: Always
